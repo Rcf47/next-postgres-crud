@@ -1,9 +1,10 @@
 "use client";
 
+import { saveEmployee } from "@/lib/action";
 import { useFormState } from "react-dom";
 
 const CreateEmployeePage = () => {
-  const [state, formAction] = useFormState();
+  const [state, formAction] = useFormState(saveEmployee, null);
   return (
     <div className="max-w-md mx-auto mt-5">
       <h1 className="text-2xl text-center mb-2">Add New Employee</h1>
@@ -23,6 +24,9 @@ const CreateEmployeePage = () => {
               className="input input-bordered input-primary w-full max-w-xs"
               placeholder="Full name ..."
             />
+            <div id="name-error" aria-live="polite" aria-atomic="true">
+              <p className="mt-2 text-sm text-red-500">{state?.Error?.name}</p>
+            </div>
           </div>
           <div className="mb-5">
             <label
@@ -38,6 +42,9 @@ const CreateEmployeePage = () => {
               className="input input-bordered input-primary w-full max-w-xs"
               placeholder="Email ..."
             />
+            <div id="email-error" aria-live="polite" aria-atomic="true">
+              <p className="mt-2 text-sm text-red-500">{state?.Error?.email}</p>
+            </div>
           </div>
           <div className="mb-5">
             <label
@@ -53,6 +60,9 @@ const CreateEmployeePage = () => {
               className="input input-bordered input-primary w-full max-w-xs"
               placeholder="Phone number ..."
             />
+            <div id="phone-error" aria-live="polite" aria-atomic="true">
+              <p className="mt-2 text-sm text-red-500">{state?.Error?.phone}</p>
+            </div>
           </div>
           <button className="btn btn-primary">Save</button>
         </form>
