@@ -1,9 +1,14 @@
+"use client";
+
+import { useFormState } from "react-dom";
+
 const CreateEmployeePage = () => {
+  const [state, formAction] = useFormState();
   return (
     <div className="max-w-md mx-auto mt-5">
       <h1 className="text-2xl text-center mb-2">Add New Employee</h1>
       <div>
-        <form>
+        <form action={formAction}>
           <div className="mb-5">
             <label
               htmlFor="name"
