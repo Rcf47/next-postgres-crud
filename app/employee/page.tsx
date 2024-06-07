@@ -1,6 +1,9 @@
+import { getEmployeeList } from "@/lib/action";
+import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 
-const Employee = async () => {
+const Employee = async ({ query }: { query: string }) => {
+  const employees = await getEmployeeList(query);
   return (
     <div className="w-screen py-20 flex justify-center flex-col items-center">
       <div className="flex items-center justify-between gap-1 mb-5">
@@ -27,14 +30,26 @@ const Employee = async () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b">
-              <td className="py-3 px-6">1</td>
-              <td className="py-3 px-6">Vadim Cherepanov</td>
-              <td className="py-3 px-6">xenos26@gmail.com</td>
-              <td className="py-3 px-6">123456</td>
-              <td className="py-3 px-6">Date</td>
-              <td className="flex justify-center gap-1 py-3">Edit | Delete</td>
-            </tr>
+            {employees.map((employee, index) => {
+              return (
+                <tr className="bg-white border-b" key={employee.id}>
+                  <td className="py-3 px-6">{index + 1}</td>
+                  <td className="py-3 px-6">{employee.name}</td>
+                  <td className="py-3 px-6">{employee.email}</td>
+                  <td className="py-3 px-6">{employee.phone}</td>
+                  <td className="py-3 px-6">{formatDate(employee.createAt)}</td>
+                  <td className="flex justify-center gap-1 py-3">
+                    <Link
+                      href={`/employee/edit/${employee.id}`}
+                      className="btn btn-info"
+                    >
+                      Edit{" "}
+                    </Link>{" "}
+                    | Delete
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
