@@ -22,7 +22,13 @@ export const saveEmployee = async (prevState: any, formData: FormData) => {
     };
   }
   try {
-    console.log("success");
+    await prisma.employee.create({
+      data: {
+        name: validatedFields.data.name,
+        email: validatedFields.data.email,
+        phone: validatedFields.data.phone,
+      },
+    });
   } catch (error) {
     return { message: "Failed to create new employee" };
   }
