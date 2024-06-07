@@ -13,7 +13,7 @@ const CreateEmployeePage = () => {
           <div className="mb-5">
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-gray-900"
+              className="block text-sm font-medium text-gray-900 mb-1"
             >
               Full Name
             </label>
@@ -31,7 +31,7 @@ const CreateEmployeePage = () => {
           <div className="mb-5">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-900"
+              className="block text-sm font-medium text-gray-900 mb-1"
             >
               Email
             </label>
@@ -49,7 +49,7 @@ const CreateEmployeePage = () => {
           <div className="mb-5">
             <label
               htmlFor="phone"
-              className="block text-sm font-medium text-gray-900"
+              className="block text-sm font-medium text-gray-900 mb-1"
             >
               Phone Number
             </label>
