@@ -35,3 +35,24 @@ export const saveEmployee = async (prevState: any, formData: FormData) => {
   revalidatePath("/employee");
   redirect("/employee");
 };
+
+export const getEmployeeList = async (query: string) => {
+  try {
+    const employees = await prisma.employee.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        phone: true,
+        createAt: true,
+      },
+      orderBy: {
+        createAt: "desc",
+      },
+    });
+    return employees;
+  } catch (error) {
+    throw new Error(`Failed to get employee list: ${error}`);
+  }
+};
+
