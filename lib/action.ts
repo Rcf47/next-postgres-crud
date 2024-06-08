@@ -4,7 +4,6 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
-import { Employee } from "@prisma/client";
 
 const EmployeeSchema = z.object({
   name: z.string().min(6, { message: "Name must be at least 6 characters" }),
@@ -69,4 +68,35 @@ export const getEmployeeById = async (id: string) => {
   } catch (error) {
     throw new Error(`Failed to get employee by id: ${error}`);
   }
+};
+
+export const updateEmployee = async (
+  id: string,
+  prevState: any,
+  formData: FormData
+) => {
+  const validatedFields = EmployeeSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
+  if (!validatedFields.success) {
+    return {
+      Error: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+  try {
+    await prisma.employee.update({
+      where: {
+        id,
+      },
+      data: {
+        name: validatedFields.data.name,
+        email: validatedFields.data.email,
+        phone: validatedFields.data.phone,
+      },
+    });
+  } catch (error) {
+    return { message: "Failed to update employee" };
+  }
+  revalidatePath("/employee");
+  redirect("/employee");
 };
