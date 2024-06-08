@@ -1,4 +1,6 @@
-const EditForm = () => {
+import { Employee } from "@prisma/client";
+
+const EditForm = ({ employee }: { employee: Employee }) => {
   return (
     <div>
       <form>
@@ -15,6 +17,7 @@ const EditForm = () => {
             id="name"
             className="input input-bordered input-primary w-full max-w-xs"
             placeholder="Full name ..."
+            defaultValue={employee.name}
           />
         </div>
         <div className="mb-5">

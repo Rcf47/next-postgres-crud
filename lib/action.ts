@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { Employee } from "@prisma/client";
 
 const EmployeeSchema = z.object({
   name: z.string().min(6, { message: "Name must be at least 6 characters" }),
