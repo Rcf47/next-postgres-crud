@@ -14,7 +14,10 @@ const Employee = async ({ query }: { query: string }) => {
         </h1>
       </div>
       <div className="overflow-x-auto">
-        <div className="mb-2 w-full text-right">
+        <div className="mb-2 w-full text-right flex gap-2 justify-between">
+          <Link href="/" className="btn btn-primary">
+            Home
+          </Link>
           <Link href="/employee/create" className="btn btn-primary">
             Create
           </Link>
