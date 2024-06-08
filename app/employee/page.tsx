@@ -1,3 +1,4 @@
+import DeleteButton from "@/components/shared/DeleteButton/DeleteButton";
 import { getEmployeeList } from "@/lib/action";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
@@ -45,7 +46,7 @@ const Employee = async ({ query }: { query: string }) => {
                     >
                       Edit{" "}
                     </Link>{" "}
-                    | Delete
+                    <DeleteButton id={employee.id} />
                   </td>
                 </tr>
               );
