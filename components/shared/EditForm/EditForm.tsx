@@ -1,9 +1,16 @@
+"use client";
+
+import { updateEmployee } from "@/lib/action";
 import { Employee } from "@prisma/client";
+import { warn } from "console";
+import { useFormState } from "react-dom";
 
 const EditForm = ({ employee }: { employee: Employee }) => {
+  const updateEmployeeWithId = updateEmployee.bind(null, employee.id);
+  const [state, formAction] = useFormState(updateEmployeeWithId, null);
   return (
     <div>
-      <form>
+      <form action={formAction}>
         <div className="mb-5">
           <label
             htmlFor="name"
@@ -16,9 +23,12 @@ const EditForm = ({ employee }: { employee: Employee }) => {
             name="name"
             id="name"
             className="input input-bordered input-primary w-full max-w-xs"
-            placeholder="Full name ..."
+            placeholder="Full name..."
             defaultValue={employee.name}
           />
+          <div id="name-error" aria-live="polite" aria-atomic="true">
+            <p className="mt-2 text-sm text-red-500">{state?.Error?.name}</p>
+          </div>
         </div>
         <div className="mb-5">
           <label
@@ -33,7 +43,12 @@ const EditForm = ({ employee }: { employee: Employee }) => {
             id="email"
             className="input input-bordered input-primary w-full max-w-xs"
             placeholder="Email..."
+            defaultValue={employee.email}
           />
+
+          <div id="email-error" aria-live="polite" aria-atomic="true">
+            <p className="mt-2 text-sm text-red-500">{state?.Error?.email}</p>
+          </div>
         </div>
         <div className="mb-5">
           <label
@@ -48,7 +63,14 @@ const EditForm = ({ employee }: { employee: Employee }) => {
             id="phone"
             className="input input-bordered input-primary w-full max-w-xs"
             placeholder="Phone Number..."
+            defaultValue={employee.phone}
           />
+          <div id="phone-error" aria-live="polite" aria-atomic="true">
+            <p className="mt-2 text-sm text-red-500">{state?.Error?.phone}</p>
+          </div>
+        </div>
+        <div id="message-error" aria-live="polite" aria-atomic="true">
+          <p className="mt-2 text-sm text-red-500">{state?.message}</p>
         </div>
         <button className="btn btn-primary">Update</button>
       </form>
